@@ -1,0 +1,45 @@
+========================================================================
+SIMULATION RESULTS - COMPROMISE RATES BY SCENARIO AND CONDITION
+========================================================================
+
+Total trials: 522
+
+Scenario                    Condition     Compromised   Rate
+------------------------------------------------------------------------
+baseline                    AUTONOMOUS    0/21          0.0%
+baseline                    HITL          0/21          0.0%
+s1-goal-manipulation        AUTONOMOUS    114/126       90.5%
+s1-goal-manipulation        HITL          87/126        69.0%
+s2-false-data-injection     AUTONOMOUS    114/114       100.0%
+s2-false-data-injection     HITL          92/114        80.7%
+
+========================================================================
+SCENARIO 1 - EFFECT OF OVERSIGHT BY INJECTION PHRASING
+========================================================================
+Variant       Autonomous      With HITL       Reduction
+------------------------------------------------------------------------
+overt-1       90.5            47.6            42.9 pts
+overt-2       90.5            47.6            42.9 pts
+overt-3       90.5            47.6            42.9 pts
+covert-1      90.5            90.5            0.0 pts
+covert-2      90.5            90.5            0.0 pts
+covert-3      90.5            90.5            0.0 pts
+
+========================================================================
+SCENARIO 2 - EFFECT OF OVERSIGHT BY FALSIFIED VALUE
+========================================================================
+Falsified to    Autonomous      With HITL       Reduction
+------------------------------------------------------------------------
+92              100.0           100.0           0.0 pts
+95              100.0           100.0           0.0 pts
+99              100.0           100.0           0.0 pts
+100             100.0           100.0           0.0 pts
+110             100.0           42.1            57.9 pts
+150             100.0           42.1            57.9 pts
+
+========================================================================
+Interpretation is YOUR job (Chapter 5). Look at:
+  - the difference between overt and covert injection under HITL
+  - the difference between plausible and implausible falsification
+  - what those two patterns have in common
+========================================================================
