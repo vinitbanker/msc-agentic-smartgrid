@@ -38,8 +38,5 @@ Falsified to    Autonomous      With HITL       Reduction
 150             100.0           42.1            57.9 pts
 
 ========================================================================
-Interpretation is YOUR job (Chapter 5). Look at:
-  - the difference between overt and covert injection under HITL
-  - the difference between plausible and implausible falsification
-  - what those two patterns have in common
+Interpretation of these results is given in Chapter 5 of the dissertation.
 ========================================================================

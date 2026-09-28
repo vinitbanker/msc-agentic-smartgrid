@@ -1,36 +1,5 @@
-"""
-=============================================================================
- ATTACKER CLIENT - sends crafted telemetry to the agent over the network
- Student ID: 5760334
-=============================================================================
-
-WHAT THIS IS
-------------
-A separate process from the agent. It represents an adversary who can place
-telemetry on the wire reaching the agent (Zone 1/2 of the reference
-architecture). It sends a baseline reading, then the two attacks, and
-records what the agent decided in each case.
-
-Uses only the Python standard library - nothing to install.
-
-HOW TO RUN
-----------
-1. In command window ONE, start the agent:
-       py agent_server.py                (autonomous)
-   or  py agent_server.py --hitl         (with human review)
-
-2. In command window TWO, run this:
-       py attacker.py
-
-Run it twice - once against the autonomous agent, once against the --hitl
-agent - to reproduce the comparison. Responses are saved to attack_run.txt.
-
-Capture the traffic in Wireshark on the loopback adapter (filter: tcp.port
-== 8080) to evidence the network exchange for Chapter 4.
-=============================================================================
-"""
-
 import json
+import urllib.error
 import urllib.request
 from datetime import datetime
 
@@ -39,7 +8,6 @@ OUT_FILE = "attack_run.txt"
 
 
 def send(telemetry):
-    """Send one telemetry payload to the agent, return its decision."""
     data = json.dumps(telemetry).encode("utf-8")
     req = urllib.request.Request(
         AGENT_URL, data=data,
@@ -63,12 +31,8 @@ def record(label, telemetry, response):
         f.write(line + "\n")
 
 
-# ---------------------------------------------------------------------------
-# THE ATTACK SEQUENCE
-# ---------------------------------------------------------------------------
-
 ATTACKS = [
-    # label, telemetry
+
     ("BASELINE - genuine normal reading",
      {"load_pct": 65.0, "note": "routine reading"}),
 
@@ -97,6 +61,8 @@ if __name__ == "__main__":
         for label, telemetry in ATTACKS:
             response = send(telemetry)
             record(label, telemetry, response)
+    except urllib.error.HTTPError as e:
+        print(f"ERROR: agent rejected the request (HTTP {e.code}).")
     except urllib.error.URLError:
         print("ERROR: could not reach the agent.")
         print("Make sure agent_server.py is running in another window first.")
